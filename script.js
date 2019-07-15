@@ -32,20 +32,22 @@ class PlatForm {
 
 
 
-// function renderingGameElements() {
-//     platform1 = new PlatForm(canvas.width / 2, canvas.height / 2)
-//     platform2 = new PlatForm(canvas.width / 3, 330)
-//     platform3 = new PlatForm(100, 400)
-//     platform4 = new PlatForm(350, 180)
+function renderingGameElements() {
 
+    platform1 = new PlatForm(100, 400)
+    platform2 = new PlatForm(180, 330)
+    platform3 = new PlatForm(250, 270)
+    platform4 = new PlatForm(330, 220)
+    platform5 = new PlatForm(230, 180)
+    platform6 = new PlatForm(150, 130)
+    platform7 = new PlatForm(70, 80)
 
-//     game1.platforms.push(platform1, platform2, platform3, platform4)
-//     game1.platforms.forEach(platform => {
-//         platform.createPlatform()
-//         detectIntersection(platform)
+    game1.platforms.push(platform1, platform2, platform3, platform4, platform5, platform6, platform7)
+    game1.platforms.forEach(platform => {
+        platform.createPlatform()
 
-//     })
-// }
+    })
+}
 
 
 
@@ -102,7 +104,7 @@ class Circle {
 // THIS SECTION CREATES CONTROLS
 
 document.onkeydown = (e) => {
-    let num = -.2
+    let num = -.05
     if (e.keyCode === 38) {
         theBall.accerlerate(num)
 
@@ -154,9 +156,14 @@ function drawLoop() {
     theBall.createBall()
     theBall.moveTheBall()
     theBall.moveTheBall()
-    // renderingGameElements()
-    platform.createPlatform()
-    detectIntersection(platform)
+    renderingGameElements()
+    detectIntersection(platform1)
+    detectIntersection(platform2)
+    detectIntersection(platform3)
+    detectIntersection(platform4)
+    detectIntersection(platform5)
+    detectIntersection(platform6)
+    detectIntersection(platform7)
 
 
     requestAnimationFrame(drawLoop)
