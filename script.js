@@ -20,12 +20,12 @@ class PlatForm {
     constructor(x, y) {
         this.x = x
         this.y = y
-        this.width = 200
-        this.height = 30
+        this.width = 100
+        this.height = 20
     }
     createPlatform() {
         ctx.fillStyle = "red"
-        ctx.fillRect(this.x, this.y, 100, 20)
+        ctx.fillRect(this.x, this.y, this.width, this.height)
     }
 }
 
@@ -139,6 +139,7 @@ function detectIntersection(platform) {
         theBall.gravitySpeed += theBall.gravity
     }
 }
+
 
 
 
