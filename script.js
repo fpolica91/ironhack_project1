@@ -83,10 +83,12 @@ function renderingGameElements() {
     // ITERATES OVER PLATFORMS AND CALLS RENDER FUNCTION
     if (x <= 10) {
         game1.platforms.push(platform1, platform2, platform3, platform4, platform5, platform6, platform7)
+
     }
 
     game1.platforms.forEach(platform => {
         platform.createPlatform()
+
     })
     // END OF PLATFORM ITERATION
 }
@@ -128,9 +130,8 @@ class Circle {
             this.gravitySpeed = 0
         }
 
-
-
     }
+
     accerlerate(n) {
         this.gravity = n
     }
@@ -166,6 +167,8 @@ class Coin {
 
 let i = 0
 
+
+// game1.coins.length <= 10 could also be used as conditional 
 
 function createGameCoins() {
     i++;
@@ -242,7 +245,6 @@ function detectIntersection(platform) {
         theBall.y = platform.y - theBall.r
         theBall.gravitySpeed = 0
     } else {
-
         theBall.gravitySpeed += theBall.gravity
     }
 }
@@ -307,8 +309,6 @@ function drawLoop() {
 
 
     // END OF COLISSION DETECTION
-
-
     requestAnimationFrame(drawLoop)
 }
 
