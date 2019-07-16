@@ -9,6 +9,7 @@ class Game {
     constructor() {
         this.platforms = []
         this.score = 0
+        this.coins = []
     }
 }
 
@@ -31,22 +32,60 @@ class PlatForm {
 
 
 
+// CREATES A MOVING PLATFORM, THIS PLATFORMS MOVES ACCROSS THE CANVAS
+
+class MovingPlatForm {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+        this.width = 90
+        this.height = 20
+        this.dx = 2
+        this.movingRight = true
+    }
+    createPlatform() {
+        ctx.fillStyle = "black"
+        ctx.fillRect(this.x, this.y, this.width, this.height)
+    }
+    movePlatForm() {
+        if (this.x < canvas.width - this.width && this.movingRight === true) {
+            this.x += this.dx;
+        } else if (this.x + this.width >= canvas.width) {
+            this.movingRight = false;
+            this.x += -this.dx;
+        } else {
+            this.x += -this.dx;
+            if (this.x < 0) {
+                this.movingRight = true;
+            }
+        }
+    }
+}
+// END OF MOVING PLATFORM
+
+
+
+
 
 function renderingGameElements() {
 
-    platform1 = new PlatForm(100, 400)
-    platform2 = new PlatForm(180, 330)
-    platform3 = new PlatForm(250, 270)
-    platform4 = new PlatForm(330, 220)
+
+    // CREATES THE PLATFORMS
+    platform1 = new PlatForm(100, 600)
+    platform2 = new PlatForm(180, 530)
+    platform3 = new PlatForm(250, 470)
+    platform4 = new PlatForm(330, 400)
     platform5 = new PlatForm(230, 180)
     platform6 = new PlatForm(150, 130)
     platform7 = new PlatForm(70, 80)
+    // END OF CREATING PLATFORMS
 
+    // ITERATES OVER PLATFORMS AND CALLS RENDER FUNCTION
     game1.platforms.push(platform1, platform2, platform3, platform4, platform5, platform6, platform7)
     game1.platforms.forEach(platform => {
         platform.createPlatform()
-
     })
+    // END OF PLATFORM ITERATION
 }
 
 
@@ -71,6 +110,7 @@ class Circle {
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
         ctx.fillStyle = "blue"
         ctx.fill()
+
     }
 
     moveTheBall() {
@@ -101,6 +141,46 @@ class Circle {
 }
 
 
+
+// COIN CLASS EXTENDS THE CIRCLE
+
+class Coin {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+        this.img = "./coin/coin.png"
+        this.width = 30
+        this.height = 30
+    }
+    renderCoin() {
+        const coin = new Image()
+        coin.src = this.img
+        ctx.drawImage(coin, this.x, this.y, this.width, this.height)
+    }
+}
+
+
+
+
+
+function createGameCoins() {
+    coin1 = new Coin((120), (600 - 27))
+    coin1.renderCoin()
+}
+
+
+// platform1 = new PlatForm(100, 600)
+// platform2 = new PlatForm(180, 530)
+// platform3 = new PlatForm(250, 470)
+// platform4 = new PlatForm(330, 400)
+// platform5 = new PlatForm(230, 180)
+// platform6 = new PlatForm(150, 130)
+// platform7 = new PlatForm(70, 80)
+
+
+
+// END OF COIN CLASS
+
 // THIS SECTION CREATES CONTROLS
 
 document.onkeydown = (e) => {
@@ -125,8 +205,23 @@ document.onkeyup = function () {
 
 
 //COLISSION DETECTION
-const theBall = new Circle(40, canvas.height, 10)
-const platform = new PlatForm(250, 250)
+
+
+
+// CREATES THE CIRCLE 
+const theBall = new Circle(40, canvas.height, 15)
+// END OF CREATES CIRCLE
+
+
+// CREATES MOVING PLATOFORM
+
+const movingPlat = new MovingPlatForm(200, 330)
+
+// END OF MOVING PLATFORM
+
+// CREATES COINS
+
+
 
 
 function detectIntersection(platform) {
@@ -137,12 +232,24 @@ function detectIntersection(platform) {
         theBall.y = platform.y - theBall.r
         theBall.gravitySpeed = 0
     } else {
-        console.log('fall')
+
         theBall.gravitySpeed += theBall.gravity
     }
 }
 
+function movingColission(platform) {
+    if (platform.x < theBall.x + theBall.r &&
+        platform.x + platform.width > theBall.x &&
+        platform.y < theBall.y + theBall.r &&
+        platform.y + platform.height > theBall.y) {
+        theBall.y = platform.y - theBall.r
+        theBall.x = (platform.x + platform.width / 2)
+        theBall.gravitySpeed = 0
 
+    } else {
+        theBall.gravitySpeed += theBall.gravity
+    }
+}
 
 
 
@@ -153,10 +260,20 @@ function detectIntersection(platform) {
 
 function drawLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // CREATING ALL ELELEMNTS
     theBall.createBall()
     theBall.moveTheBall()
     theBall.moveTheBall()
+    createGameCoins()
     renderingGameElements()
+    // END OF CREATING ELEMENTS
+
+    // CREATES MOVING BLACK PLATFORM
+    movingPlat.createPlatform()
+    movingPlat.movePlatForm()
+    // END OF BLACK PLATFORM
+
+    // DETECTS COLISSION
     detectIntersection(platform1)
     detectIntersection(platform2)
     detectIntersection(platform3)
@@ -164,6 +281,8 @@ function drawLoop() {
     detectIntersection(platform5)
     detectIntersection(platform6)
     detectIntersection(platform7)
+    movingColission(movingPlat)
+    // END OF COLISSION DETECTION
 
 
     requestAnimationFrame(drawLoop)
