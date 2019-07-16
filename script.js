@@ -157,6 +157,7 @@ class Coin {
         coin.src = this.img
         ctx.drawImage(coin, this.x, this.y, this.width, this.height)
     }
+
 }
 
 
@@ -165,17 +166,17 @@ class Coin {
 
 function createGameCoins() {
     coin1 = new Coin((120), (600 - 27))
-    coin1.renderCoin()
+    coin2 = new Coin((200), (530 - 27))
+    coin3 = new Coin(280, (470 - 27))
+    coin4 = new Coin(350, (400 - 27))
+    game1.coins.push(coin1, coin2, coin3, coin4)
+    game1.coins.forEach(coin => {
+        coin.renderCoin()
+    })
 }
 
 
-// platform1 = new PlatForm(100, 600)
-// platform2 = new PlatForm(180, 530)
-// platform3 = new PlatForm(250, 470)
-// platform4 = new PlatForm(330, 400)
-// platform5 = new PlatForm(230, 180)
-// platform6 = new PlatForm(150, 130)
-// platform7 = new PlatForm(70, 80)
+
 
 
 
@@ -251,6 +252,15 @@ function movingColission(platform) {
     }
 }
 
+function collectCoin(coin) {
+    if (coin.x < theBall.x + theBall.r &&
+        coin.x + coin.width > theBall.x &&
+        coin.y < theBall.y + theBall.r &&
+        coin.y + coin.height > theBall.y) {
+    }
+}
+
+
 
 
 //END OF COLISSION DETECTION
@@ -282,6 +292,10 @@ function drawLoop() {
     detectIntersection(platform6)
     detectIntersection(platform7)
     movingColission(movingPlat)
+
+
+
+
     // END OF COLISSION DETECTION
 
 
