@@ -65,11 +65,11 @@ class MovingPlatForm {
 
 
 
-
+let x = 0
 
 function renderingGameElements() {
 
-
+    x++;
     // CREATES THE PLATFORMS
     platform1 = new PlatForm(100, 600)
     platform2 = new PlatForm(180, 530)
@@ -81,7 +81,10 @@ function renderingGameElements() {
     // END OF CREATING PLATFORMS
 
     // ITERATES OVER PLATFORMS AND CALLS RENDER FUNCTION
-    game1.platforms.push(platform1, platform2, platform3, platform4, platform5, platform6, platform7)
+    if (x <= 10) {
+        game1.platforms.push(platform1, platform2, platform3, platform4, platform5, platform6, platform7)
+    }
+
     game1.platforms.forEach(platform => {
         platform.createPlatform()
     })
@@ -142,7 +145,7 @@ class Circle {
 
 
 
-// COIN CLASS EXTENDS THE CIRCLE
+// COIN CLASS E
 
 class Coin {
     constructor(x, y) {
@@ -161,17 +164,23 @@ class Coin {
 }
 
 
-
+let i = 0
 
 
 function createGameCoins() {
+    i++;
     coin1 = new Coin((120), (600 - 27))
     coin2 = new Coin((200), (530 - 27))
     coin3 = new Coin(280, (470 - 27))
     coin4 = new Coin(350, (400 - 27))
-    game1.coins.push(coin1, coin2, coin3, coin4)
+    if (i <= 10) {
+        game1.coins.push(coin1, coin2, coin3, coin4)
+    }
     game1.coins.forEach(coin => {
         coin.renderCoin()
+        if (collectCoin(coin)) {
+            coin.img = null;
+        }
     })
 }
 
@@ -257,6 +266,7 @@ function collectCoin(coin) {
         coin.x + coin.width > theBall.x &&
         coin.y < theBall.y + theBall.r &&
         coin.y + coin.height > theBall.y) {
+        return true;
     }
 }
 
