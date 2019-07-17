@@ -2,6 +2,12 @@
 const canvas = document.getElementById('board')
 const ctx = canvas.getContext('2d')
 
+// restart the game
+
+function restart() {
+    location.reload()
+}
+
 
 // CREATES GAME OBJECT 
 
@@ -82,6 +88,7 @@ function renderingGameElements() {
 
     // ITERATES OVER PLATFORMS AND CALLS RENDER FUNCTION
     if (x <= 10) {
+        game1.platforms = []
         game1.platforms.push(platform1, platform2, platform3, platform4, platform5, platform6, platform7)
 
     }
@@ -98,26 +105,28 @@ function renderingGameElements() {
 
 
 class Enemy {
-    constructor(x, y) {
+    constructor(x, y, dx) {
         this.x = canvas.width
         this.y = y
         this.width = 50
         this.height = 50
         this.img = "./img/bullet.png"
-        this.dx = 3
+        this.dx = dx
     }
     drawEnemy() {
         const enemy = new Image()
         enemy.src = this.img
         ctx.drawImage(enemy, this.x, this.y, this.width, this.height)
     }
+
     moveEnemy() {
-        this.x -= this.dx
+        this.x += -this.dx
         if (this.x + this.width <= 0) {
-            this.x = canvas.width
+            this.x = canvas.width + this.width
         }
     }
 }
+
 
 
 let enem = 0
@@ -125,20 +134,24 @@ let enem = 0
 function renderEnemies() {
     enem++
 
-    bullet1 = new Enemy(canvas.width, 100)
-    bullet2 = new Enemy(canvas.width, 400)
+    bullet1 = new Enemy(canvas.width, 100, 3)
+    bullet2 = new Enemy(canvas.width, 400, 3)
+    bullet3 = new Enemy(canvas.width, 600, 3)
+    bullet4 = new Enemy(canvas.width, 250, 3)
 
     if (enem <= 10) {
-        game1.enemies.push(bullet1, bullet2)
-
+        game1.enemies = []
+        game1.enemies.push(bullet1, bullet2, bullet3, bullet4)
     }
-    game1.enemies.forEach(enemy => {
-
-        enemy.drawEnemy()
-        enemy.moveEnemy()
-    })
+    for (let i = 0; i < game1.enemies.length; i++) {
+        game1.enemies[i].drawEnemy()
+        game1.enemies[i].moveEnemy()
+        bulletColission(game1.enemies[i])
+    }
 
 }
+
+
 
 
 
@@ -316,7 +329,24 @@ function collectCoin(coin) {
     }
 }
 
+function bulletColission(bullet) {
+    if (bullet.x < theBall.x + theBall.r &&
+        bullet.x + bullet.width > theBall.x &&
+        bullet.y < theBall.y + theBall.r &&
+        bullet.y + bullet.height > theBall.y) {
+        gameOver()
+    }
+}
 
+
+function gameOver() {
+    ctx.font = "50px Arial"
+    ctx.fillText("Game Over", 120, 300)
+    cancelAnimationFrame()
+    ctx.fillStyle = "black"
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+}
 
 
 //END OF COLISSION DETECTION
@@ -329,7 +359,7 @@ function drawLoop() {
     // CREATING ALL ELELEMNTS
     theBall.createBall()
     theBall.moveTheBall()
-    theBall.moveTheBall()
+
 
     createGameCoins()
     renderingGameElements()
