@@ -10,6 +10,7 @@ class Game {
         this.platforms = []
         this.score = 0
         this.coins = []
+        this.enemies = []
     }
 }
 
@@ -68,7 +69,6 @@ class MovingPlatForm {
 let x = 0
 
 function renderingGameElements() {
-
     x++;
     // CREATES THE PLATFORMS
     platform1 = new PlatForm(100, 600)
@@ -88,13 +88,57 @@ function renderingGameElements() {
 
     game1.platforms.forEach(platform => {
         platform.createPlatform()
-
     })
-    // END OF PLATFORM ITERATION
+    // END OF PLATFORM ITERATIOn
+
+
+
+
 }
 
 
+class Enemy {
+    constructor(x, y) {
+        this.x = canvas.width
+        this.y = y
+        this.width = 50
+        this.height = 50
+        this.img = "./img/bullet.png"
+        this.dx = 3
+    }
+    drawEnemy() {
+        const enemy = new Image()
+        enemy.src = this.img
+        ctx.drawImage(enemy, this.x, this.y, this.width, this.height)
+    }
+    moveEnemy() {
+        this.x -= this.dx
+        if (this.x + this.width <= 0) {
+            this.x = canvas.width
+        }
+    }
+}
 
+
+let enem = 0
+
+function renderEnemies() {
+    enem++
+
+    bullet1 = new Enemy(canvas.width, 100)
+    bullet2 = new Enemy(canvas.width, 400)
+
+    if (enem <= 10) {
+        game1.enemies.push(bullet1, bullet2)
+
+    }
+    game1.enemies.forEach(enemy => {
+
+        enemy.drawEnemy()
+        enemy.moveEnemy()
+    })
+
+}
 
 
 
@@ -232,7 +276,7 @@ const movingPlat = new MovingPlatForm(200, 330)
 
 // END OF MOVING PLATFORM
 
-// CREATES COINS
+
 
 
 
@@ -286,8 +330,11 @@ function drawLoop() {
     theBall.createBall()
     theBall.moveTheBall()
     theBall.moveTheBall()
+
     createGameCoins()
     renderingGameElements()
+    renderEnemies()
+
     // END OF CREATING ELEMENTS
 
     // CREATES MOVING BLACK PLATFORM
