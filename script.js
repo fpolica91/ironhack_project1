@@ -98,11 +98,13 @@ class MovingPlatForm {
 
 let x = 0
 
-// CORDINATES //
+// CORDINATES TO PLACE BOTH PLATFORM AND COINS//
 const xCord = [100, 200, 300, 400, 350, 220, 100]
 const yCord = [830, 750, 670, 590, 350, 270, 190]
+// END OF CORDINATES
 
 
+// CREATES STATIC RED PLATFORMS 
 function renderingGameElements() {
     x++;
 
@@ -128,11 +130,11 @@ function renderingGameElements() {
     game1.platforms.forEach(platform => {
         platform.createPlatform()
     })
-    // END OF PLATFORM ITERATIOn
+
 }
+// END OF STATIC RED PLATFORM CREATING
 
-
-
+// CREATES THE BLACK BULLET
 class Enemy {
     constructor(x, y, dx) {
         this.x = canvas.width
@@ -155,7 +157,7 @@ class Enemy {
         }
     }
 }
-
+// END OF BLACK BULLET 
 
 
 let enem = 0
@@ -182,7 +184,7 @@ function renderEnemies() {
 
 
 
-
+// THE MAIN CHARACTER IS A BLACK CIRCLE 
 
 class Circle {
     constructor(x, y, r) {
@@ -227,15 +229,14 @@ class Circle {
     moveBack() {
         this.x -= 10;
     }
-    win() {
-        this.img = "./img/win.png"
-    }
+
 
 }
+// END OF MAIN CHARACTER CLASS 
 
 
 
-// COIN CLASS E
+// CREATES THE GOLD COINS
 
 class Coin {
     constructor(x, y) {
@@ -252,8 +253,11 @@ class Coin {
     }
 
 }
+// END OF THE GOLD COINS 
 
 
+
+// CREATES STAR ON GREEN PLATFORM
 class Star extends Coin {
     constructor(x, y) {
         super(x, y)
@@ -261,16 +265,14 @@ class Star extends Coin {
     }
 
 }
+// END OF STAR CLASS
 
 
 let i = 0
 
 
-// game1.coins.length <= 10 could also be used as conditional 
 
-// const xCord = [100, 200, 300, 400, 350, 220, 100]
-// const yCord = [830, 750, 670, 590, 350, 270, 190]
-
+// THIS FUNCTION RENDER ALL THE STARS AT THE GIVEN X & Y CORDINATES, 
 function createGameCoins() {
     const height = 30
     const width = 30
@@ -292,16 +294,20 @@ function createGameCoins() {
         coin.renderCoin()
 
         if (collectCoin(coin)) {
-            game1.coins.splice(coin, 1)
-            console.log(game1.coins.length)
+            // REMOVES ONLY THE COIN AT THE GIVEN INDEX
+            game1.coins.splice(game1.coins.indexOf(coin), 1)
         }
     })
+    // IF THE COIN ARRAY IS EMPTY THEN CALL THE WIN FUNCTION
     if (!game1.coins.length) {
-        alert('win')
+        win()
     }
 }
 
-// END OF COIN CLASS
+
+function win() {
+    console.log('you won')
+}
 
 
 
@@ -339,7 +345,7 @@ const theBall = new Circle(40, canvas.height, 15)
 // END OF CREATES CIRCLE
 
 
-// CREATES MOVING PLATOFORM
+// CREATES MOVING PLATFORM
 
 const movingPlat = new MovingPlatForm(200, 450)
 
@@ -348,7 +354,7 @@ const movingPlat = new MovingPlatForm(200, 450)
 
 
 
-
+// COLSSION DETECTION FOR STATIC PLATFORMS 
 
 function detectIntersection(platform) {
     if (platform.x < theBall.x + theBall.r &&
@@ -361,6 +367,8 @@ function detectIntersection(platform) {
         theBall.gravitySpeed += theBall.gravity
     }
 }
+
+// COLISSION DETECTION FOR MOVING PLATFORM
 
 function movingColission(platform) {
     if (platform.x < theBall.x + theBall.r &&
@@ -376,6 +384,8 @@ function movingColission(platform) {
     }
 }
 
+
+// COLISSION DETECTION FOR MOVING COIN
 function collectCoin(coin) {
     if (coin.x < theBall.x + theBall.r &&
         coin.x + coin.width > theBall.x &&
@@ -385,6 +395,7 @@ function collectCoin(coin) {
     }
 }
 
+// COLISSION DETECTION FOR BULLET
 function bulletColission(bullet) {
     if (bullet.x < theBall.x + theBall.r &&
         bullet.x + bullet.width > theBall.x &&
@@ -395,6 +406,7 @@ function bulletColission(bullet) {
 }
 
 
+// GAME OVER FUNCTION
 function gameOver() {
     ctx.font = "50px Arial"
     ctx.fillText("Game Over", 120, 300)
@@ -402,7 +414,6 @@ function gameOver() {
 }
 
 
-//END OF COLISSION DETECTION
 
 
 
