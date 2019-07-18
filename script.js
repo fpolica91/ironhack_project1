@@ -17,7 +17,9 @@ class Game {
         this.score = 0
         this.coins = []
         this.enemies = []
+
     }
+
 }
 
 const game1 = new Game()
@@ -161,10 +163,10 @@ let enem = 0
 function renderEnemies() {
     enem++
 
-    bullet1 = new Enemy(canvas.width, 100, 3)
-    bullet2 = new Enemy(canvas.width, 400, 3)
-    bullet3 = new Enemy(canvas.width, 600, 3)
-    bullet4 = new Enemy(canvas.width, 250, 3)
+    bullet1 = new Enemy(canvas.width, 100, 1)
+    bullet2 = new Enemy(canvas.width, 400, 1)
+    bullet3 = new Enemy(canvas.width, 600, 1)
+    bullet4 = new Enemy(canvas.width, 250, 1)
 
     if (enem <= 10) {
         game1.enemies = []
@@ -197,7 +199,7 @@ class Circle {
     createBall() {
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
-        ctx.fillStyle = "blue"
+        ctx.fillStyle = "black"
         ctx.fill()
 
     }
@@ -224,6 +226,9 @@ class Circle {
     }
     moveBack() {
         this.x -= 10;
+    }
+    win() {
+        this.img = "./img/win.png"
     }
 
 }
@@ -277,19 +282,26 @@ function createGameCoins() {
     coin5 = new Coin(xCord[4] + width, yCord[4] - height)
     coin6 = new Coin(xCord[5] + width, yCord[5] - height)
     coin7 = new Coin(xCord[6] + width, yCord[6] - height)
+    star = new Star(450, 30)
     if (i <= 10) {
-        game1.coins.push(coin1, coin2, coin3, coin4, coin5, coin6, coin7)
+        game1.coins = []
+        game1.coins.push(coin1, coin2, coin3, coin4, coin5, coin6, coin7, star)
     }
     game1.coins.forEach(coin => {
+
         coin.renderCoin()
+
         if (collectCoin(coin)) {
-            coin.img = null;
+            game1.coins.splice(coin, 1)
+            console.log(game1.coins.length)
         }
     })
+    if (!game1.coins.length) {
+        alert('win')
+    }
 }
 
 // END OF COIN CLASS
-
 
 
 

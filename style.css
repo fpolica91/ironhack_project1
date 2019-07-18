@@ -1,0 +1,7 @@
+#board{ 
+    background-image: url('./img/backgroundpng.jpg')
+}
+
+.selected{
+    display: none;
+}
