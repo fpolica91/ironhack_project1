@@ -25,17 +25,31 @@ const game1 = new Game()
 // CREATES THE PLATFORMS
 
 class PlatForm {
-    constructor(x, y) {
+    constructor(x, y, color) {
         this.x = x
         this.y = y
         this.width = 100
         this.height = 20
+        this.color = color
     }
     createPlatform() {
-        ctx.fillStyle = "red"
+        ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.width, this.height)
     }
 }
+
+
+// FINAL PLATFORM EXTENDS PLATFORM
+
+class FinalPlatform extends PlatForm {
+    constructor(x, y, color) {
+        super(x, y, color);
+        this.width = 450
+        this.height = 30
+    }
+}
+
+
 
 
 
@@ -72,24 +86,40 @@ class MovingPlatForm {
 
 
 
+
+
+
+
+
+
+
+
 let x = 0
+
+// CORDINATES //
+const xCord = [100, 200, 300, 400, 350, 220, 100]
+const yCord = [830, 750, 670, 590, 350, 270, 190]
+
 
 function renderingGameElements() {
     x++;
+
     // CREATES THE PLATFORMS
-    platform1 = new PlatForm(100, 600)
-    platform2 = new PlatForm(180, 530)
-    platform3 = new PlatForm(250, 470)
-    platform4 = new PlatForm(330, 400)
-    platform5 = new PlatForm(230, 180)
-    platform6 = new PlatForm(150, 130)
-    platform7 = new PlatForm(70, 80)
+    platform1 = new PlatForm(xCord[0], yCord[0], "red")
+    platform2 = new PlatForm(xCord[1], yCord[1], "red")
+    platform3 = new PlatForm(xCord[2], yCord[2], "red")
+    platform4 = new PlatForm(xCord[3], yCord[3], "red")
+    platform5 = new PlatForm(xCord[4], yCord[4], "red")
+    platform6 = new PlatForm(xCord[5], yCord[5], "red")
+    platform7 = new PlatForm(xCord[6], yCord[6], "red")
+    final = new FinalPlatform(250, 60, 'green')
+
     // END OF CREATING PLATFORMS
 
     // ITERATES OVER PLATFORMS AND CALLS RENDER FUNCTION
     if (x <= 10) {
         game1.platforms = []
-        game1.platforms.push(platform1, platform2, platform3, platform4, platform5, platform6, platform7)
+        game1.platforms.push(platform1, platform2, platform3, platform4, platform5, platform6, platform7, final)
 
     }
 
@@ -97,11 +127,8 @@ function renderingGameElements() {
         platform.createPlatform()
     })
     // END OF PLATFORM ITERATIOn
-
-
-
-
 }
+
 
 
 class Enemy {
@@ -222,19 +249,36 @@ class Coin {
 }
 
 
+class Star extends Coin {
+    constructor(x, y) {
+        super(x, y)
+        this.img = "./img/star.png"
+    }
+
+}
+
+
 let i = 0
 
 
 // game1.coins.length <= 10 could also be used as conditional 
 
+// const xCord = [100, 200, 300, 400, 350, 220, 100]
+// const yCord = [830, 750, 670, 590, 350, 270, 190]
+
 function createGameCoins() {
+    const height = 30
+    const width = 30
     i++;
-    coin1 = new Coin((120), (600 - 27))
-    coin2 = new Coin((200), (530 - 27))
-    coin3 = new Coin(280, (470 - 27))
-    coin4 = new Coin(350, (400 - 27))
+    coin1 = new Coin(xCord[0] + width, yCord[0] - height)
+    coin2 = new Coin(xCord[1] + width, yCord[1] - height)
+    coin3 = new Coin(xCord[2] + width, yCord[2] - height)
+    coin4 = new Coin(xCord[3] + width, yCord[3] - height)
+    coin5 = new Coin(xCord[4] + width, yCord[4] - height)
+    coin6 = new Coin(xCord[5] + width, yCord[5] - height)
+    coin7 = new Coin(xCord[6] + width, yCord[6] - height)
     if (i <= 10) {
-        game1.coins.push(coin1, coin2, coin3, coin4)
+        game1.coins.push(coin1, coin2, coin3, coin4, coin5, coin6, coin7)
     }
     game1.coins.forEach(coin => {
         coin.renderCoin()
@@ -244,12 +288,12 @@ function createGameCoins() {
     })
 }
 
-
-
-
-
-
 // END OF COIN CLASS
+
+
+
+
+
 
 // THIS SECTION CREATES CONTROLS
 
@@ -274,7 +318,7 @@ document.onkeyup = function () {
 // END OF CONTROLS
 
 
-//COLISSION DETECTION
+
 
 
 
@@ -285,7 +329,7 @@ const theBall = new Circle(40, canvas.height, 15)
 
 // CREATES MOVING PLATOFORM
 
-const movingPlat = new MovingPlatForm(200, 330)
+const movingPlat = new MovingPlatForm(200, 450)
 
 // END OF MOVING PLATFORM
 
@@ -343,9 +387,6 @@ function gameOver() {
     ctx.font = "50px Arial"
     ctx.fillText("Game Over", 120, 300)
     cancelAnimationFrame()
-    ctx.fillStyle = "black"
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
-
 }
 
 
@@ -363,6 +404,7 @@ function drawLoop() {
 
     createGameCoins()
     renderingGameElements()
+    final.createPlatform()
     renderEnemies()
 
     // END OF CREATING ELEMENTS
@@ -380,6 +422,8 @@ function drawLoop() {
     detectIntersection(platform5)
     detectIntersection(platform6)
     detectIntersection(platform7)
+    detectIntersection(final)
+
     movingColission(movingPlat)
 
 
