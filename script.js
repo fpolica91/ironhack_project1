@@ -2,10 +2,24 @@
 const canvas = document.getElementById('board')
 const ctx = canvas.getContext('2d')
 
+
+canvas.style.display = "none"
+
+function startGame() {
+    canvas.style.display = "block"
+    let begin = document.querySelector('.begin')
+    setTimeout(() => {
+        begin.style.display = 'none'
+    }, 400)
+
+}
+
+
 // restart the game
 
 function restart() {
     location.reload()
+
 }
 
 
@@ -161,6 +175,8 @@ class Enemy {
 // END OF BLACK BULLET 
 
 
+
+
 // CREATES SHARK
 
 class Shark {
@@ -193,11 +209,36 @@ const fish = new Shark(0, 700, 3)
 
 // END OF SHARK
 
+// SEAGULL
 
 
+class SeaGull extends Shark {
+    constructor(x, y, dx) {
+        super(x, y, dx)
+        this.img = "./img/seagull.png"
+        this.width = 100
+        this.height = 90
+    }
+    randomizeYAxis(max, min) {
+        max = Math.floor(max)
+        min = Math.ceil(min)
+        this.y = Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    moveSeaGull() {
+        this.x += this.dx
+        if (this.x > canvas.width) {
+            this.x = 0 - this.width
+            this.randomizeYAxis(50, 400)
+            console.log(this.y)
+        }
+    }
+}
+
+const seagull = new SeaGull(0, 250, 3)
 
 
-
+// END OF SEAFULL
 
 let enem = 0
 
@@ -205,13 +246,11 @@ function renderEnemies() {
     enem++
 
     bullet1 = new Enemy(canvas.width, 100, 3)
-    bullet2 = new Enemy(canvas.width, 400, 1)
-    bullet3 = new Enemy(canvas.width, 600, 4)
     bullet4 = new Enemy(canvas.width, 250, 6)
 
     if (enem <= 10) {
         game1.enemies = []
-        game1.enemies.push(bullet1, bullet2, bullet3, bullet4)
+        game1.enemies.push(bullet1, bullet4)
     }
     for (let i = 0; i < game1.enemies.length; i++) {
         game1.enemies[i].drawEnemy()
@@ -219,12 +258,13 @@ function renderEnemies() {
         bulletColission(game1.enemies[i])
     }
 
+
+    seagull.createShark()
+    seagull.moveSeaGull()
     fish.createShark()
     fish.moveShark()
     bulletColission(fish)
-
-
-
+    bulletColission(seagull)
 }
 
 
