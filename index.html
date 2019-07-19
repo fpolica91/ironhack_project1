@@ -6,28 +6,23 @@
     <title>Test Collission</title>
 
     <style>
-        #board {
-            border: 1px solid black;
-        }
 
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
     </style>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <canvas id="board" width="700" height="900">
 
-    </canvas>
+    <div class="board">
+        <canvas id="board" width="700" height="900">
+        </canvas>
+    </div>
 
 
     <script src="./script.js"></script>
-    <div>
+
+    <div class="control">
         <button onclick="restart()" class="restart">Restart</button>
     </div>
 

@@ -17,6 +17,7 @@ class Game {
         this.score = 0
         this.coins = []
         this.enemies = []
+        this.lose = false;
 
     }
 
@@ -160,15 +161,53 @@ class Enemy {
 // END OF BLACK BULLET 
 
 
+// CREATES SHARK
+
+class Shark {
+    constructor(x, y, dx) {
+        this.x = x
+        this.y = y
+        this.width = 200
+        this.height = 120
+        this.dx = dx
+        this.img = "./img/shark.png"
+    }
+    createShark() {
+        const shark = new Image()
+        shark.src = this.img
+        ctx.drawImage(shark, this.x, this.y, this.width, this.height)
+    }
+    moveShark() {
+        this.x += this.dx
+        if (this.x > canvas.width) {
+            this.x = 0 - this.width
+            let min = Math.ceil(500)
+            let max = Math.floor(700)
+            this.y = Math.floor(Math.random() * (max - min)) + min;
+        }
+
+    }
+}
+
+const fish = new Shark(0, 700, 3)
+
+// END OF SHARK
+
+
+
+
+
+
+
 let enem = 0
 
 function renderEnemies() {
     enem++
 
-    bullet1 = new Enemy(canvas.width, 100, 1)
+    bullet1 = new Enemy(canvas.width, 100, 3)
     bullet2 = new Enemy(canvas.width, 400, 1)
-    bullet3 = new Enemy(canvas.width, 600, 1)
-    bullet4 = new Enemy(canvas.width, 250, 1)
+    bullet3 = new Enemy(canvas.width, 600, 4)
+    bullet4 = new Enemy(canvas.width, 250, 6)
 
     if (enem <= 10) {
         game1.enemies = []
@@ -179,6 +218,12 @@ function renderEnemies() {
         game1.enemies[i].moveEnemy()
         bulletColission(game1.enemies[i])
     }
+
+    fish.createShark()
+    fish.moveShark()
+    bulletColission(fish)
+
+
 
 }
 
@@ -201,7 +246,7 @@ class Circle {
     createBall() {
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
-        ctx.fillStyle = "black"
+        ctx.fillStyle = "white"
         ctx.fill()
 
     }
@@ -306,7 +351,7 @@ function createGameCoins() {
 
 
 function win() {
-    console.log('you won')
+    alert('Victory')
 }
 
 
@@ -416,7 +461,7 @@ function gameOver() {
 
 
 
-
+let requestID;
 
 function drawLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -428,6 +473,10 @@ function drawLoop() {
     createGameCoins()
     renderingGameElements()
     final.createPlatform()
+
+
+
+
     renderEnemies()
 
     // END OF CREATING ELEMENTS
@@ -446,15 +495,17 @@ function drawLoop() {
     detectIntersection(platform6)
     detectIntersection(platform7)
     detectIntersection(final)
-
     movingColission(movingPlat)
 
 
 
 
     // END OF COLISSION DETECTION
-    requestAnimationFrame(drawLoop)
+    requestID = requestAnimationFrame(drawLoop)
 }
 
+
+
 drawLoop()
+
 
