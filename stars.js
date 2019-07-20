@@ -1,5 +1,5 @@
 
-
+// GOLD COINS
 class Coin {
     constructor(x, y) {
         this.x = x
@@ -28,8 +28,10 @@ class Star extends Coin {
 
 }
 
+let i = 0;
 
 
+// RENDERS THE COINS AND THE STAR, ALSO PUSHES IT TO GAME.STARS
 function createGameCoins() {
     const height = 30
     const width = 30
@@ -60,3 +62,4 @@ function createGameCoins() {
         win()
     }
 }
+// END OF RENDERCOINS
