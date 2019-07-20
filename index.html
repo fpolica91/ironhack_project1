@@ -8,6 +8,8 @@
     <style>
 
     </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,18 +18,46 @@
 
 
 
+    <!-- <p>
+
+        Your objective is to collect all the coins, while avoiding the enemies, be warned, this enemies are fierceful,
+        it is their duty
+        to protect the treasures you will soon see. Whenever You are ready click Begin
+
+    </p> -->
+    <div class="jumbotron">
+        <h1 class="display-4">Escape Bikini Bottom</h1>
+        <p class="lead">
+            Your objective is to collect all the coins, while avoiding the enemies, be warned, this enemies are
+            fierceful,
+            it is their duty
+            to protect the treasures you will soon see. Whenever You are ready click Begin
+        </p>
+        <hr class="my-4">
+        <p>Beware of moving platforms, they are quite sticky</p>
+        <a onclick="startGame()" class="btn btn-primary btn-lg" href="#" role="button">Begin</a>
+    </div>
+
     <div class="board">
-        <canvas id="board" width="900" height="900">
+        <canvas id="board" width="1000" height="900">
         </canvas>
 
     </div>
 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 
+
+    <script src="./platforms.js"></script>
     <script src="./script.js"></script>
+    <script src="./stars.js"></script>
+    <script src="./drawLoop.js"></script>
+
 
     <div class="control">
         <button onclick="restart()" class="restart">Restart</button>
-        <button onclick="startGame()" class="begin"> Begin </button>
+
     </div>
 
 
