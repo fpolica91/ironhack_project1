@@ -90,24 +90,17 @@ const seagull = new SeaGull(0, 250, 3)
 
 
 
-let enem = 0
+
+const bullet1 = new Enemy(canvas.width, 100, 3)
+const bullet4 = new Enemy(canvas.width, 250, 6)
+game1.enemies.push(bullet1, bullet4)
 
 function renderEnemies() {
-    enem++
-
-    bullet1 = new Enemy(canvas.width, 100, 3)
-    bullet4 = new Enemy(canvas.width, 250, 6)
-
-    if (enem <= 10) {
-        game1.enemies = []
-        game1.enemies.push(bullet1, bullet4)
-    }
     for (let i = 0; i < game1.enemies.length; i++) {
         game1.enemies[i].drawEnemy()
         game1.enemies[i].moveEnemy()
         bulletColission(game1.enemies[i])
     }
-
 
     seagull.createShark()
     seagull.moveSeaGull()
@@ -116,4 +109,3 @@ function renderEnemies() {
     bulletColission(fish)
     bulletColission(seagull)
 }
-

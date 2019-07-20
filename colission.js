@@ -17,7 +17,7 @@ function movingColission(platform) {
         platform.y < theBall.y + theBall.r &&
         platform.y + platform.height > theBall.y) {
         theBall.y = platform.y - theBall.r
-        theBall.x = (platform.x + platform.width / 2)
+        // theBall.x = (platform.x + platform.width / 2)
         theBall.gravitySpeed = 0
 
     } else {

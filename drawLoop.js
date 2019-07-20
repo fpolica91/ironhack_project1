@@ -7,19 +7,9 @@ function drawLoop() {
 
     createGameCoins()
     renderingGameElements()
-    final.createPlatform()
-
-
-
-
     renderEnemies()
 
-    // END OF CREATING ELEMENTS
 
-    // CREATES MOVING BLACK PLATFORM
-    movingPlat.createPlatform()
-    movingPlat.movePlatForm()
-    // END OF BLACK PLATFORM
 
     // DETECTS COLISSION
     detectIntersection(platform1)
@@ -29,8 +19,15 @@ function drawLoop() {
     detectIntersection(platform5)
     detectIntersection(platform6)
     detectIntersection(platform7)
+    detectIntersection(rightPlatform1)
+    detectIntersection(rightPlatform2)
+    detectIntersection(rightPlatform3)
+    detectIntersection(rightPlatform4)
+    detectIntersection(rightPlatform5)
+
     detectIntersection(final)
     movingColission(movingPlat)
+    movingColission(elevatorPlatform)
 
 
 
