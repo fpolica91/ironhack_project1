@@ -11,6 +11,7 @@ function drawLoop() {
         renderingGameElements()
         renderEnemies()
         spongeBob.drawMisc()
+
         decideIfMessage()
 
 

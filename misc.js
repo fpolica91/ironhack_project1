@@ -1,16 +1,24 @@
 class Misc {
-    constructor(x, y, width, height) {
+    constructor(img, x, y, width, height) {
         this.x = x
         this.y = y
         this.width = width
         this.height = height
-        this.img = "./img/spongbob.png"
+        this.img = img
+        this.rain = false;
 
     }
     drawMisc() {
         let misc = new Image()
         misc.src = this.img
         ctx.drawImage(misc, this.x, this.y, this.width, this.height)
+    }
+    moveMisc() {
+        this.y += 4
+        if (this.y + this.width > canvas.height) {
+            this.y = 0 - this.width
+            this.x = Math.floor(Math.random() * canvas.width - this.width)
+        }
     }
 
 }
@@ -19,11 +27,11 @@ class Misc {
 
 
 
-const spongeBob = new Misc(canvas.width / 2, 825, 100, 80)
-// ctx.fillText("Help Me,I have been here for years!", spongeBob.x, spongeBob.y - 20)
+const spongeBob = new Misc("./img/spongbob.png", canvas.width / 2, 825, 100, 80)
+const thePebble = new Misc("./img/pebble.png", canvas.width / 2, 100, 60, 60)
 
 ctx.font = "15px Arial"
-let text = "Beware of the shark!!"
+let text = "WATCH OUT!!!!"
 
 // CREATES BUBBLE
 
@@ -53,12 +61,23 @@ function drawBubble(ctx, x, y, w, h, radius, text) {
 }
 
 
+let shot = new Audio('./sound/shot.flac')
+
 
 
 
 function decideIfMessage() {
     if (collectCoin(spongeBob)) {
         drawBubble(ctx, spongeBob.x, spongeBob.y - 50, ctx.measureText(text).width + 40, 50, 20, text)
+        this.rain = true;
+    }
+    if (this.rain) {
+        thePebble.drawMisc()
+        thePebble.moveMisc()
+        if (collectCoin(thePebble)) {
+            sound.play()
+            gameOver()
+        }
     }
 }
 

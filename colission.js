@@ -36,6 +36,8 @@ function collectCoin(coin) {
     }
 }
 
+
+
 // COLISSION DETECTION FOR BULLET
 function bulletColission(bullet) {
     if (bullet.x < theBall.x + theBall.r &&
@@ -43,5 +45,7 @@ function bulletColission(bullet) {
         bullet.y < theBall.y + theBall.r &&
         bullet.y + bullet.height > theBall.y) {
         gameOver()
+
+
     }
 }
