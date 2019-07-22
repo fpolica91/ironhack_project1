@@ -7,17 +7,18 @@ canvas.style.display = "none"
 
 function startGame() {
     canvas.style.display = "block"
-    let begin = document.querySelector('.jumbotron')
-    setTimeout(() => {
-        begin.style.display = 'none'
-    }, 400)
-
+    let begin = $('.jumbotron')
+    begin.hide(3000)
+    $('.restart').fadeOut(1000)
 }
 
 // RESTARTS GAME
 
 function restart() {
     location.reload()
+
+
+
 }
 
 
@@ -31,7 +32,8 @@ class Game {
         this.score = 0
         this.coins = []
         this.enemies = []
-        this.lose = false;
+        this.won = false;
+        this.lost = false;
 
     }
 
@@ -93,22 +95,10 @@ class Circle {
 
 }
 
-
-
-
-
-
-function win() {
-    alert('Victory')
-}
-
-
-
-
-
 // THIS SECTION CREATES CONTROLS
 
 document.onkeydown = (e) => {
+    console.log(e.keyCode)
     let num = -.05
     if (e.keyCode === 38) {
         theBall.accerlerate(num)
@@ -117,12 +107,19 @@ document.onkeydown = (e) => {
         theBall.moveAcross()
     } else if (e.keyCode === 37) {
         theBall.moveBack()
+    } else if (e.keyCode === 65) {
+        theBall.x += 20
+        theBall.accerlerate(-.02)
+
+    } else if (e.keyCode === 68) {
+        theBall.x -= 20
+        theBall.accerlerate(-.02)
     }
 
 }
 
 document.onkeyup = function () {
-    let num = .2;
+    let num = .5;
     theBall.accerlerate(num)
 }
 
@@ -131,13 +128,14 @@ document.onkeyup = function () {
 
 const theBall = new Circle(40, canvas.height, 15)
 
+let sound = new Audio("./sound/sound.wav");
 
 
 // GAME OVER FUNCTION
 function gameOver() {
-    ctx.font = "50px Arial"
-    ctx.fillText("Game Over", 120, 300)
-    cancelAnimationFrame()
+    game1.lost = true;
+    sound.play()
+    $('.restart').show(5000)
 }
 
 

@@ -53,7 +53,7 @@ class Shark {
     }
 }
 
-const fish = new Shark(0, 700, 3)
+const fish = new Shark(0, 700, 1)
 
 // END OF SHARK
 
@@ -83,7 +83,7 @@ class SeaGull extends Shark {
     }
 }
 
-const seagull = new SeaGull(0, 250, 3)
+const seagull = new SeaGull(0, 250, 1)
 
 
 // END OF SEAFULL
@@ -91,8 +91,8 @@ const seagull = new SeaGull(0, 250, 3)
 
 
 
-const bullet1 = new Enemy(canvas.width, 100, 3)
-const bullet4 = new Enemy(canvas.width, 250, 6)
+const bullet1 = new Enemy(canvas.width, 100, 1)
+const bullet4 = new Enemy(canvas.width, 250, 1)
 game1.enemies.push(bullet1, bullet4)
 
 function renderEnemies() {

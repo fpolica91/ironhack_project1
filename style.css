@@ -36,3 +36,7 @@
 body{
     background-color: rgb(1, 21, 27)
 }
+.keys{
+    height: 200px;
+    width: 200px;
+}

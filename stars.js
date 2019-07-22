@@ -49,17 +49,29 @@ game1.coins.push(coin1, coin2, coin3, coin4, coin5, coin6, coin7, coin8, coin9, 
 
 
 // RENDERS THE COINS AND THE STAR, ALSO PUSHES IT TO GAME.STARS
+
+let coinCollect = new Audio('./sound/coin.wav')
+
 function createGameCoins() {
 
     game1.coins.forEach(coin => {
         coin.renderCoin()
         if (collectCoin(coin)) {
+            coinCollect.play()
             game1.coins.splice(game1.coins.indexOf(coin), 1)
         }
     })
 
     if (!game1.coins.length) {
-        win()
+        success()
     }
 }
+
+let winSound = new Audio('./sound/cheers.wav');
+
+function success() {
+    game1.won = true;
+    winSound.play()
+}
+
 // END OF RENDERCOINS
