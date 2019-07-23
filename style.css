@@ -3,6 +3,7 @@
     border: 1px solid black;  
 }
 .board{
+   
     display: flex;
     align-content: center;
     justify-content: center;

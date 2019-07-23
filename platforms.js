@@ -95,7 +95,7 @@ const rightPlatform2 = new PlatForm(xCord[8], yCord[8], "aqua")
 const rightPlatform3 = new PlatForm(xCord[9], yCord[9], "purple")
 const rightPlatform4 = new PlatForm(xCord[10], yCord[10], "gold")
 const rightPlatform5 = new PlatForm(xCord[11], yCord[11], "darkblue")
-const final = new FinalPlatform(250, 60, 'green')
+const final = new FinalPlatform(250, 90, 'green')
 
 game1.platforms.push(platform1, platform2,
     platform3, platform4,

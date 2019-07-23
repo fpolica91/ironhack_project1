@@ -134,9 +134,11 @@ class Circle {
     }
     moveAcross() {
         this.x += 10
+        this.img = "./img/flamingo.png"
     }
     moveBack() {
         this.x -= 10;
+        this.img = "./img/flamingoFlipped.png"
     }
 
 
@@ -175,7 +177,7 @@ document.onkeyup = function () {
 // END OF CONTROLS
 
 
-const theBall = new Circle(40, 820, 30, 60)
+const theBall = new Circle(40, 820, 40, 70)
 
 
 let sound = new Audio("./sound/sound.wav");
