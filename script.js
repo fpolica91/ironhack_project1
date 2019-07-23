@@ -48,24 +48,71 @@ const game1 = new Game()
 
 // THE MAIN CHARACTER IS A BLACK CIRCLE 
 
+// class Circle {
+//     constructor(x, y, r) {
+//         this.jumping = false;
+//         this.x = x
+//         this.y = y
+//         this.r = r
+//         this.speedY = 0
+//         this.gravity = .05
+//         this.gravitySpeed = 0
+//         this.bottom = canvas.height - this.r
+
+//     }
+//     createBall() {
+//         ctx.beginPath()
+//         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
+//         ctx.fillStyle = "white"
+//         ctx.fill()
+
+//     }
+
+//     moveTheBall() {
+//         this.gravitySpeed += this.gravity
+//         this.y += this.speedY + this.gravitySpeed
+//         this.hitBottom()
+
+//     }
+//     hitBottom() {
+//         if (this.y > this.bottom) {
+//             this.y = this.bottom
+//             this.gravitySpeed = 0
+//         }
+
+//     }
+
+//     accerlerate(n) {
+//         this.gravity = n
+//     }
+//     moveAcross() {
+//         this.x += 10
+//     }
+//     moveBack() {
+//         this.x -= 10;
+//     }
+
+
+// }
+
 class Circle {
-    constructor(x, y, r) {
-        this.jumping = false;
+    constructor(x, y, width, height) {
+
         this.x = x
         this.y = y
-        this.r = r
+        this.width = width
+        this.height = height
         this.speedY = 0
         this.gravity = .05
         this.gravitySpeed = 0
-        this.bottom = canvas.height - this.r
+        this.bottom = canvas.height - this.height
+        this.img = "./img/flamingo.png"
 
     }
     createBall() {
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
-        ctx.fillStyle = "white"
-        ctx.fill()
-
+        const elFlamingo = new Image()
+        elFlamingo.src = this.img;
+        ctx.drawImage(elFlamingo, this.x, this.y, this.width, this.height)
     }
 
     moveTheBall() {
@@ -94,6 +141,8 @@ class Circle {
 
 
 }
+
+
 
 // THIS SECTION CREATES CONTROLS
 
@@ -126,7 +175,8 @@ document.onkeyup = function () {
 // END OF CONTROLS
 
 
-const theBall = new Circle(40, canvas.height, 15)
+const theBall = new Circle(40, 820, 30, 60)
+
 
 let sound = new Audio("./sound/sound.wav");
 

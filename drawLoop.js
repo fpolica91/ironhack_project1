@@ -3,6 +3,7 @@ function drawLoop() {
 
     if (!game1.won) {
         // CREATING ALL ELELEMNTS
+        // theBall.createBall()
         theBall.createBall()
         theBall.moveTheBall()
 
