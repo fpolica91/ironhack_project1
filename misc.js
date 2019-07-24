@@ -28,9 +28,9 @@ class Misc {
 
 
 
-const spongeBob = new Misc("./img/spongbob.png", canvas.width / 2, 825, 100, 80)
+const spongeBob = new Misc("./img/spongbob.png", canvas.width / 2, 812, 100, 80)
 const thePebble = new Misc("./img/pebble.png", canvas.width / 2, 100, 60, 60)
-const flashLight = new Misc('./img/lightbulb.png', 1000, 870, 40, 40)
+const flashLight = new Misc('./img/lightbulb.png', 1000, 860, 40, 40)
 
 ctx.font = "15px Arial"
 let text = "WATCH OUT!!!!"
@@ -69,7 +69,7 @@ let shot = new Audio('./sound/shot.flac')
 
 
 
-function decideIfMessage() {
+function renderingMisc() {
     if (collectCoin(spongeBob)) {
         drawBubble(ctx, spongeBob.x, spongeBob.y - 50, ctx.measureText(text).width + 40, 50, 20, text)
         spongeBob.rain = true;
@@ -79,11 +79,13 @@ function decideIfMessage() {
         thePebble.drawMisc()
         thePebble.moveMisc()
         flashLight.drawMisc()
-        canvas.style.opacity = 0.1
+        canvas.style.opacity = 0.03
         if (collectCoin(flashLight)) {
             flashLight.lights = true;
         } if (flashLight.lights) {
+
             canvas.style.opacity = .5
+
         }
 
         if (collectCoin(thePebble)) {
